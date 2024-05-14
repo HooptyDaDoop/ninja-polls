@@ -35,7 +35,7 @@
     border: none;
     background-color: white;
 
-    transition: color 150ms ease-in-out;
+    transition: color 100ms ease-in-out;
   }
   .tab-info:hover {
     color: #D84727;

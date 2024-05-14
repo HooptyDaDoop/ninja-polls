@@ -12,10 +12,21 @@
     {title: 'View Polls', id: 0},
     {title: 'Add Poll', id: 1},
   ];
+
   let currentPage = 0;
+
+	if (localStorage.getItem('currentPage')) {
+		currentPage = parseInt(
+			JSON.parse(localStorage.getItem('currentPage'))
+		)
+	} else {
+		currentPage = 0;
+	}
 
 	const changePage = (e) => {
 		currentPage = e.detail.id;
+
+		localStorage.setItem('currentPage', currentPage)
 	}
 </script>
 
