@@ -111,6 +111,8 @@
   .form-wrapper {
     display: flex;
     justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
   }
 
   form {

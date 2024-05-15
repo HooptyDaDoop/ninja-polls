@@ -58,13 +58,29 @@
 
     localStorage.setItem("polls", JSON.stringify(polls));
   };
+
+  const updatePolls = (e) => {
+    const { option, id } = e.detail;
+
+    let pollsCopy = [...polls];
+
+    let pollToUpdate = pollsCopy.find((poll) => {
+      return poll.id === id;
+    });
+
+    pollToUpdate[`votes${option.toUpperCase()}`] = ++pollToUpdate[`votes${option.toUpperCase()}`];
+
+    polls = [...pollsCopy];
+
+    localStorage.setItem("polls", JSON.stringify(polls));
+  };
 </script>
 
 <Header></Header>
 <Tabs {pages} {currentPage} on:clicked={(e) => changePage(e, false)}></Tabs>
 
 {#if currentPage == 0}
-  <Polls {polls}></Polls>
+  <Polls {polls} on:vote={(e) => updatePolls(e)}></Polls>
 {:else if currentPage == 1}
   <AddPoll on:validForm={(e) => addNewPoll(e)}></AddPoll>
 {:else}

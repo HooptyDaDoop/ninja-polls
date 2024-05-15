@@ -1,37 +1,38 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+
   export let poll = {};
 
-  const addVote = (option) => {
-    let optionToEdit = Object.keys(poll).filter((key) => {
-      return key === `votes${option.toUpperCase()}`;
-    });
+  const dispatch = createEventDispatcher();
 
-    poll[optionToEdit] = ++poll[optionToEdit];
-    console.log((poll.votesA / 100) * totalVotes);
+  const addVote = (option, id) => {
+    dispatch("vote", { option, id });
   };
 
   $: totalVotes = poll.votesA + poll.votesB;
 
   $: percentA = Math.floor((100 / totalVotes) * poll.votesA);
   $: percentB = Math.floor((100 / totalVotes) * poll.votesB);
-
-  console.log(totalVotes);
 </script>
 
-<div>
+<div class="details">
   <div class="answer-a votes" on:keydown={() => {}} on:click={() => addVote("a", poll.id)}>
     <span class="answer-info">{poll.answerA}</span>
-    <span class="answer-info">({poll.votesA})</span>
+    <span class="answer-info total-votes">({poll.votesA})</span>
     <div class="percent-fill" style="width: {percentA}%"></div>
   </div>
 
   <div class="answer-b votes" on:keydown={() => {}} on:click={() => addVote("b", poll.id)}>
     <span class="answer-info">{poll.answerB}</span>
-    <span class="answer-info">({poll.votesB})</span>
+    <span class="answer-info total-votes">({poll.votesB})</span>
     <div class="percent-fill" style="width: {percentB}%"></div>
   </div>
 
-  <p>Total votes: {totalVotes}</p>
+  {#if totalVotes > 0}
+    <p class="votes-total">Total votes: {totalVotes}</p>
+  {:else}
+    <p class="votes-total">No votes yet</p>
+  {/if}
 </div>
 
 <style>
@@ -52,18 +53,26 @@
     justify-content: space-between;
 
     transition: 150ms ease-in-out;
+
+    font-weight: bold;
   }
 
   .votes:hover {
     background-color: rgba(0, 0, 0, 0.05);
+    transform: translateY(-5%);
   }
 
   .votes:active {
-    transform: translateY(5%);
+    transform: translateY(0);
   }
 
   .answer-info {
     z-index: 10;
+  }
+
+  .total-votes {
+    font-style: italic;
+    color: #aaa;
   }
 
   .percent-fill {
@@ -72,9 +81,13 @@
     left: 0;
     height: 100%;
 
-    transition: 100ms ease-in-out;
+    transition: 250ms ease-in-out;
 
     border-radius: 1rem;
-    background-color: rgb(255, 196, 208);
+    background-color: rgb(233, 233, 233);
+  }
+
+  .votes-total {
+    color: #bbb;
   }
 </style>

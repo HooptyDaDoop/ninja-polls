@@ -22,3 +22,15 @@ textarea,
 select {
   font: inherit;
 }
+
+@media only screen and (max-width: 350px) {
+  * {
+    font-size: 0.75rem;
+  }
+}
+
+@media only screen and (max-width: 150px) {
+  * {
+    font-size: 0.5rem;
+  }
+}

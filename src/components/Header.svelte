@@ -1,12 +1,17 @@
 <!-- MARK: Logic
 -->
 <script>
+  export let useHeaderImg = false;
 </script>
 
 <!-- MARK: Content
 -->
 <div>
-  <img class="logo" src="/assets/logo.svg" alt="Poll Ninja" />
+  {#if useHeaderImg}
+    <img class="logo" src="/assets/logo.svg" alt="Poll Ninja" />
+  {:else}
+    <h2 class="title">Polls Ninja</h2>
+  {/if}
 </div>
 
 <!-- MARK: Styles
@@ -20,6 +25,11 @@
     justify-content: center;
 
     background-color: #f7f7f7;
+  }
+
+  .title {
+    font-size: 2rem;
+    padding: 1rem;
   }
 
   .logo {
