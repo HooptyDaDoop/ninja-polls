@@ -1,16 +1,13 @@
 <!-- MARK: Logic
 -->
 <script>
-
 </script>
-
 
 <!-- MARK: Content
 -->
 <div>
   <p>Copyright @ Ninja Polls (2024 - Present)</p>
 </div>
-
 
 <!-- MARK: Styles
 -->

@@ -1,46 +1,84 @@
 <script>
-	import Header from './components/Header.svelte';
-	import Footer from './components/Footer.svelte';
+  import Header from "./components/Header.svelte";
+  import Footer from "./components/Footer.svelte";
 
-	import AddPoll from './components/AddPoll.svelte';
-	import Polls from './components/Polls.svelte';
+  import AddPoll from "./components/AddPoll.svelte";
+  import Polls from "./components/Polls.svelte";
 
-	import Tabs from './shared/Tabs.svelte';
+  import Tabs from "./shared/Tabs.svelte";
 
-	let pages = [
-    {title: 'View Polls', id: 0},
-    {title: 'Add Poll', id: 1},
+  // Changing active page
+  let pages = [
+    { title: "View Polls", id: 0 },
+    { title: "Add Poll", id: 1 },
   ];
 
   let currentPage = 0;
 
-	if (localStorage.getItem('currentPage')) {
-		currentPage = parseInt(
-			JSON.parse(localStorage.getItem('currentPage'))
-		)
-	} else {
-		currentPage = 0;
-	}
+  if (localStorage.getItem("currentPage")) {
+    currentPage = parseInt(JSON.parse(localStorage.getItem("currentPage")));
+  } else {
+    currentPage = 0;
+  }
 
-	const changePage = (e) => {
-		currentPage = e.detail.id;
+  const changePage = (e, isExact) => {
+    if (isExact) {
+      currentPage = e;
+    } else {
+      currentPage = e.detail.id;
+    }
 
-		localStorage.setItem('currentPage', currentPage)
-	}
+    localStorage.setItem("currentPage", currentPage);
+  };
+
+  // Handling polls (showing, storing, getting from storage)
+  let polls = [];
+
+  if (!localStorage.getItem("polls")) {
+    localStorage.setItem("polls", JSON.stringify(polls));
+  } else {
+    polls = JSON.parse(localStorage.getItem("polls"));
+  }
+
+  const addNewPoll = (e) => {
+    changePage(0, true);
+
+    const details = e.detail;
+
+    const newPoll = {
+      question: details.question,
+      answerA: details.answerA,
+      answerB: details.answerB,
+      votesA: 0,
+      votesB: 0,
+      id: Math.random(),
+    };
+
+    polls = [newPoll, ...polls];
+
+    localStorage.setItem("polls", JSON.stringify(polls));
+  };
 </script>
 
 <Header></Header>
-<Tabs {pages} {currentPage} on:clicked={changePage}></Tabs>
+<Tabs {pages} {currentPage} on:clicked={(e) => changePage(e, false)}></Tabs>
 
 {#if currentPage == 0}
-	<Polls></Polls>
+  <Polls {polls}></Polls>
 {:else if currentPage == 1}
-	<AddPoll on:validForm={(e) => console.log(e.detail)}></AddPoll>
+  <AddPoll on:validForm={(e) => addNewPoll(e)}></AddPoll>
 {:else}
-	<h2>404 - PAGE NOT FOUND</h2>
+  <div class="not-found">
+    <h2>404 - PAGE NOT FOUND</h2>
+  </div>
 {/if}
 
 <Footer></Footer>
 
 <style>
+  .not-found {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+  }
 </style>

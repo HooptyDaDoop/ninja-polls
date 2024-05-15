@@ -9,15 +9,15 @@
   const dispatch = createEventDispatcher();
 </script>
 
-
 <!-- MARK: Content
 -->
 <div class="tabs">
   {#each pages as page}
-    <button class:active={currentPage == page.id} class="tab-info" on:click={() => dispatch('clicked', page)}>{page.title}</button>
+    <button class:active={currentPage == page.id} class="tab-info" on:click={() => dispatch("clicked", page)}>
+      {page.title}
+    </button>
   {/each}
 </div>
-
 
 <!-- MARK: Styles
 -->
@@ -28,6 +28,7 @@
     justify-content: center;
     padding: 0.5rem;
     gap: 2rem;
+    font-size: 1.25rem;
   }
   .tab-info {
     cursor: pointer;
@@ -38,10 +39,10 @@
     transition: color 100ms ease-in-out;
   }
   .tab-info:hover {
-    color: #D84727;
+    color: #d84727;
   }
   .active {
-    color: #D84727;
-    border-bottom: 2px solid #D84727;
+    color: #d84727;
+    border-bottom: 2px solid #d84727;
   }
 </style>

@@ -1,10 +1,12 @@
-<!-- TODO |x| Add question field -->
-<!-- TODO |x| Create a single answer component (this is the correct answer) -->
-<!-- TODO |x| Create 2 answer fields -->
-<!-- TODO |x| Create a button to submit the form -->
-<!-- TODO |x| When the form is submitted, check answer and question input fields for validation -->
-<!-- TODO | | If any fields are not long enough, create a component to let the user know. Don't submit form  -->
-<!-- TODO |x| Otherwise, emit a custom event to submit the form data -->
+<!--
+  * TODO | Add question field
+  * TODO | Create a single answer component (this is the correct answer)
+  * TODO | Create 2 answer fields
+  * TODO | Create a button to submit the form
+  * TODO | When the form is submitted, check answer and question input fields for validation
+  * TODO | If any fields are not long enough, create a component to let the user know. Don't submit form
+  * TODO | Otherwise, emit a custom event to submit the form data
+-->
 
 <!-- MARK: Logic
 -->
@@ -17,58 +19,61 @@
   let isValid = false;
 
   let poll = {
-    question: '',
-    answerA: '',
-    answerB: ''
-  }
+    question: "",
+    answerA: "",
+    answerB: "",
+  };
 
   let errors = {
-    question: '',
-    answerA: '',
-    answerB: ''
-  }
-
+    question: "",
+    answerA: "",
+    answerB: "",
+  };
 
   function validateForm() {
     isValid = true;
 
     if (poll.question.trim().length < 3) {
-      errors.question = 'Question must be at least 3 characters long.';
+      errors.question = "Question must be at least 3 characters long.";
       isValid = false;
     } else {
-      errors.question = '';
+      errors.question = "";
     }
 
     if (poll.answerA.trim().length < 1) {
       errors.answerA = 'Answer "A" can\'t be empty';
       isValid = false;
     } else {
-      errors.answerA = '';
+      errors.answerA = "";
     }
 
     if (poll.answerB.trim().length < 1) {
       errors.answerB = 'Answer "B" can\'t be empty';
       isValid = false;
     } else {
-      errors.answerB = '';
+      errors.answerB = "";
     }
   }
-
 
   function submitForm() {
     if (isValid == false) {
-      console.log('Form is not valid');
+      console.log("Form is not valid");
       return;
     }
 
-    dispatch('validForm', poll);
+    poll.question = poll.question.charAt(0).toUpperCase() + poll.question.slice(1);
 
-    poll.question = '';
-    poll.answerA = '';
-    poll.answerB = '';
+    poll.answerA = poll.answerA.charAt(0).toUpperCase() + poll.answerA.slice(1);
+
+    poll.answerB = poll.answerB.charAt(0).toUpperCase() + poll.answerB.slice(1);
+
+    dispatch("validForm", poll);
+
+    poll.question = "";
+    poll.answerA = "";
+    poll.answerB = "";
   }
 </script>
-
 
 <!-- MARK: Content
 -->
@@ -76,19 +81,21 @@
   <form on:submit|preventDefault={submitForm}>
     <div class="form-item question">
       <label for="question">Question</label>
-      <input type="text" id="question" bind:value={poll.question}>
-      <div class="error" class:error-pad={errors.question}>{errors.question}</div>
+      <input type="text" id="question" bind:value={poll.question} />
+      <div class="error" class:error-pad={errors.question}>
+        {errors.question}
+      </div>
     </div>
 
     <div class="form-item answer">
       <label for="answer-a">Answer A</label>
-      <input type="text" id="answer-a" bind:value={poll.answerA}>
+      <input type="text" id="answer-a" bind:value={poll.answerA} />
       <div class="error" class:error-pad={errors.answerA}>{errors.answerA}</div>
     </div>
 
     <div class="form-item answer">
       <label for="answer-b">Answer B</label>
-      <input type="text" id="answer-b" bind:value={poll.answerB}>
+      <input type="text" id="answer-b" bind:value={poll.answerB} />
       <div class="error" class:error-pad={errors.answerB}>{errors.answerA}</div>
     </div>
 
@@ -97,7 +104,6 @@
     </div>
   </form>
 </div>
-
 
 <!-- MARK: Styles
 -->
@@ -143,10 +149,9 @@
 
     user-select: none;
     transition: 150ms ease-in-out;
-
   }
 
   .error-pad {
-    padding:  0.25rem 0.5rem;
+    padding: 0.25rem 0.5rem;
   }
 </style>

@@ -3,13 +3,11 @@
 <script>
 </script>
 
-
 <!-- MARK: Content
 -->
 <div>
-  <img class="logo" src="/assets/logo.svg" alt="Poll Ninja">
+  <img class="logo" src="/assets/logo.svg" alt="Poll Ninja" />
 </div>
-
 
 <!-- MARK: Styles
 -->
