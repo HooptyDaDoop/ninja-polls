@@ -13,7 +13,7 @@
   {#each polls as poll (poll.id)}
     <Card>
       <h2 slot="title">{poll.question}</h2>
-      <PollDetails slot="details" {poll} on:vote></PollDetails>
+      <PollDetails slot="details" {poll} on:vote on:polDelete></PollDetails>
     </Card>
   {/each}
 </div>

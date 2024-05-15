@@ -20,5 +20,7 @@
     margin: 1rem;
 
     box-shadow: 0 2px 0.25rem 0.1rem rgba(0, 0, 0, 0.1);
+
+    position: relative;
   }
 </style>

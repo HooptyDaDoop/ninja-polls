@@ -1,4 +1,5 @@
 <script>
+  import Button from "../shared/Button.svelte";
   import { createEventDispatcher } from "svelte";
 
   export let poll = {};
@@ -13,6 +14,11 @@
 
   $: percentA = Math.floor((100 / totalVotes) * poll.votesA);
   $: percentB = Math.floor((100 / totalVotes) * poll.votesB);
+
+  // Deleting polls
+  const deleteButtonClick = (id) => {
+    dispatch("polDelete", id);
+  };
 </script>
 
 <div class="details">
@@ -28,11 +34,14 @@
     <div class="percent-fill" style="width: {percentB}%"></div>
   </div>
 
-  {#if totalVotes > 0}
-    <p class="votes-total">Total votes: {totalVotes}</p>
-  {:else}
-    <p class="votes-total">No votes yet</p>
-  {/if}
+  <div class="poll-info">
+    {#if totalVotes > 0}
+      <p class="votes-total">Total votes: {totalVotes}</p>
+    {:else}
+      <p class="votes-total">No votes yet</p>
+    {/if}
+    <Button buttonText="Delete Poll" on:onButtonClick={(id) => deleteButtonClick(poll.id)}></Button>
+  </div>
 </div>
 
 <style>
@@ -89,5 +98,11 @@
 
   .votes-total {
     color: #bbb;
+  }
+
+  .poll-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 </style>

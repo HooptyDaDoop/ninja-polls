@@ -61,6 +61,10 @@
       return;
     }
 
+    if (!poll.question.endsWith("?")) {
+      poll.question = poll.question + "?";
+    }
+
     poll.question = poll.question.charAt(0).toUpperCase() + poll.question.slice(1);
 
     poll.answerA = poll.answerA.charAt(0).toUpperCase() + poll.answerA.slice(1);
@@ -96,7 +100,7 @@
     <div class="form-item answer">
       <label for="answer-b">Answer B</label>
       <input type="text" id="answer-b" bind:value={poll.answerB} />
-      <div class="error" class:error-pad={errors.answerB}>{errors.answerA}</div>
+      <div class="error" class:error-pad={errors.answerB}>{errors.answerB}</div>
     </div>
 
     <div class="submit-btn">
