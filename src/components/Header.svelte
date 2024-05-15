@@ -1,23 +1,30 @@
 <!-- MARK: Logic
 -->
 <script>
-  export let headerTitle = 'Ninja Polls';
 </script>
 
 
 <!-- MARK: Content
 -->
 <div>
-  <h1 class="title">{headerTitle}</h1>
+  <img class="logo" src="/assets/logo.svg" alt="Poll Ninja">
 </div>
 
 
 <!-- MARK: Styles
 -->
 <style>
-.title {
-  background-color: #f7f7f7;
-  text-align: center;
+  div {
+    display: flex;
+    flex-direction: column;
 
-}
+    align-items: center;
+    justify-content: center;
+
+    background-color: #f7f7f7;
+  }
+
+  .logo {
+    width: 340px;
+  }
 </style>

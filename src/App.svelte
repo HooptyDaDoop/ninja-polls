@@ -7,7 +7,6 @@
 
 	import Tabs from './shared/Tabs.svelte';
 
-
 	let pages = [
     {title: 'View Polls', id: 0},
     {title: 'Add Poll', id: 1},
@@ -32,6 +31,14 @@
 
 <Header></Header>
 <Tabs {pages} {currentPage} on:clicked={changePage}></Tabs>
+
+{#if currentPage == 0}
+	<Polls></Polls>
+{:else if currentPage == 1}
+	<AddPoll on:validForm={(e) => console.log(e.detail)}></AddPoll>
+{:else}
+	<h2>404 - PAGE NOT FOUND</h2>
+{/if}
 
 <Footer></Footer>
 
